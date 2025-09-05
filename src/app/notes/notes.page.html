@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar mode="ios" class="header-page">
+    <ion-title>
+      Notes
+    </ion-title>
+    
+    <ion-icon name="help-circle-outline" id="open-help-notes" slot="end"></ion-icon>
+  </ion-toolbar>
+
+  <ion-popover trigger="open-help-notes" triggerAction="click">
+    <ng-template>
+      <ion-content class="ion-padding">
+        To edit a note, drag to the right.
+        <br>
+        To delete a note, drag to the left.
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (loading) {
+    <ion-spinner name="bubbles" class="loading-spinner"></ion-spinner>
+  }
+
+  @if(showSearchBar){
+    <ion-searchbar placeholder="Search by book" class="search-bar-page" (ionInput)="filterNotes($event)"></ion-searchbar>
+  }
+
+  <ion-list>
+    @if(filteredNotes.length === 0){
+      <ion-item>
+        <ion-label>
+          <h2>No notes</h2>
+        </ion-label>
+      </ion-item>
+    }
+    @for (note of filteredNotes; track $index) {
+      <ion-item-sliding #slidingNote>
+        <ion-item-options side="start">
+          <ion-item-option (click)="editNote(slidingNote, note)">
+            <ion-icon slot="icon-only" name="pencil-sharp"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item (click)="expandNote(note)">
+          <ion-label class="texts-note">
+            <h2>{{note.title}}</h2>
+            <p>{{note.text}}</p>
+            <p>by: {{note.titleBook}}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteNote(slidingNote, note.id)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    }
+  </ion-list>
+</ion-content>

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="chevron-back-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{book.title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="content-pdf">
+    <app-pdf-view [pdfUrl]="book.contentUrl"></app-pdf-view>
+  </div>
+
+  <ion-buttons class="content-buttons-actions">
+    <ion-button color="primary" (click)="saveBook(book)">
+      <ion-icon name="bookmark-outline"></ion-icon>
+    </ion-button>
+    <ion-button color="primary" (click)="showAlertAddNote(book.title)">
+      <ion-icon name="pencil-sharp"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-content>

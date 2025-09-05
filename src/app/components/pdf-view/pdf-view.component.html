@@ -1,0 +1,51 @@
+<div class="header-tools-pdf">
+  <div class="content-zoom-pdf">
+    <ion-icon name="remove-circle-outline" (click)="zoomOut()"></ion-icon>
+    <p class="value-zoom">{{ zoom }}</p>
+    <ion-icon name="add-circle-outline" (click)="zoomIn()"></ion-icon>
+  </div>
+
+  <div class="content-page-pdf">
+    <ion-icon name="chevron-back-outline" (click)="previousPage()"></ion-icon>
+
+    <div class="content-value-page">
+      <ion-input 
+        id="input-changed-page"
+        [value]="page" 
+        type="number" 
+        (change)="changedPageEvent($event)"
+      ></ion-input>
+
+      <span class="total-page"> / {{totalPages}} </span>
+    </div>
+
+    <ion-icon name="chevron-forward-outline" (click)="nextPage()"></ion-icon>
+  </div>
+
+  <ion-select 
+    class="content-select-scale-page-pdf"
+    aria-label="width-pdf" 
+    interface="popover" 
+    placeholder="Select width pdf" 
+    [value]="pageScale" 
+    (ionChange)="handleChangePageScale($event)"
+  >
+    <ion-select-option value="page-width">Page Width</ion-select-option>
+    <ion-select-option value="page-height">Page Height</ion-select-option>
+    <ion-select-option value="page-fit">Page Fit</ion-select-option>
+  </ion-select>
+</div>
+
+@if(pdfUrl){
+  <pdf-viewer 
+    [src]="pdfUrl"
+    [page]="page"
+    [zoom-scale]="pageScale"
+    [render-text]="true"
+    [original-size]="false"
+    [show-all]="false"
+    [zoom]="zoom"
+    (after-load-complete)="afterLoadComplete($event)"
+    style="width: 100%; height: 100%"
+  ></pdf-viewer>
+}

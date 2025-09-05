@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar mode="ios" class="header-page">
+      <ion-title>
+        Home
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (loading) {
+    <ion-spinner name="bubbles" class="loading-spinner"></ion-spinner>
+  }
+
+  <ion-searchbar placeholder="What do you want to study?" class="search-bar-page" (ionInput)="filterBooks($event)"></ion-searchbar>
+
+  <ion-grid>
+    <ion-row>
+      @if(booksFiltered.length > 0) {
+        @for (book of booksFiltered; track $index) {
+          <ion-col size="6">
+            <ion-card color="light" class="card-book" (click)="openModalViewPdf(book)">
+              <ion-card-header class="card-header">
+                <ion-card-subtitle>{{book.chapterNumber + " - " + book.title }}</ion-card-subtitle>
+              </ion-card-header>
+          
+              <ion-card-content class="card-content">
+                <ion-icon [color]="getColorIconBook($index)" name="book-outline" class="card-icon-book"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        } 
+      }
+    </ion-row>
+  </ion-grid>
+</ion-content>

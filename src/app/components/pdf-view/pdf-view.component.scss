@@ -1,0 +1,31 @@
+.header-tools-pdf, .content-zoom-pdf, .content-page-pdf {
+    display: flex;
+    align-items: center;
+}
+
+.header-tools-pdf {
+    justify-content: space-between;
+}
+
+.content-select-scale-page-pdf {
+    width: 110px;
+}
+
+.value-zoom {
+    width: 30px;
+    text-align: center;
+}
+
+.total-page{
+    width: 40px;
+}
+
+#input-changed-page{
+    width: 30px;
+}
+
+.content-value-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

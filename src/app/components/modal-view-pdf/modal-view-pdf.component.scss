@@ -1,0 +1,9 @@
+.content-buttons-actions {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-pdf {
+    height: calc(100% - 40px);
+}
