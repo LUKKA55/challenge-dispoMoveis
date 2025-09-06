@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PDFDocumentProxy, PdfViewerModule, ZoomScale } from 'ng2-pdf-viewer';
-import { IonicModule, IonInput } from "@ionic/angular";
+import { IonicModule } from "@ionic/angular";
 
 @Component({
   selector: 'app-pdf-view',

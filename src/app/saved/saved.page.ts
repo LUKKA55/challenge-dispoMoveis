@@ -24,7 +24,10 @@ export class SavedPage {
         event instanceof NavigationEnd && 
         event.urlAfterRedirects.includes('/saved')
       )
-        this.loadBooksSaved()
+        // Atualiza os livros salvos toda vez que entra na página
+        this.booksSaved = (JSON.parse(localStorage.getItem("booksSaved") ?? "[]") as IBook[])
+        this.filteredBooksSaved = this.booksSaved
+        this.showSearchBar = this.filteredBooksSaved.length > 0
     });
   }
 
@@ -37,10 +40,11 @@ export class SavedPage {
           if(deleteNote){
             this.booksSaved = this.booksSaved.filter(b => b.id !== book.id)
             this.filteredBooksSaved = this.filteredBooksSaved.filter(b => b.id !== book.id)
-          }else{
+          } else {
             this.booksSaved.push(book)
             this.filteredBooksSaved.push(book)
           }
+          
           this.showSearchBar = this.filteredBooksSaved.length > 0
         }
       },
@@ -53,13 +57,6 @@ export class SavedPage {
 		const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
 		this.filteredBooksSaved = this.booksSaved.filter(book => book.title.toLowerCase().includes(searchTerm));
 	}
-
-  private loadBooksSaved(){
-    // Atualiza os livros salvos toda vez que entra na página
-    this.booksSaved = (JSON.parse(localStorage.getItem("booksSaved") ?? "[]") as IBook[])
-    this.filteredBooksSaved = this.booksSaved
-    this.showSearchBar = this.filteredBooksSaved.length > 0
-  }
 
   getColorIconBook(idx:number){
 		switch((idx + 1) % 4){

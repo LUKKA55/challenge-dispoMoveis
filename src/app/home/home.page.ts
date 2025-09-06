@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IBook } from '../interfaces/book';
 import { ApiService } from '../services/api-service';
 import { ModalController } from '@ionic/angular';
@@ -11,14 +11,14 @@ import { ModalViewPDFComponent } from '../components/modal-view-pdf/modal-view-p
   standalone: false,
 })
 export class HomePage {
-	private books : IBook[] = [];
+	private books: IBook[] = [];
 	
-	booksFiltered : IBook[] = [];
+	booksFiltered: IBook[] = [];
 	loading = true;
 
 	constructor(
-		private modalController : ModalController, 
-		private apiService:ApiService
+		private modalController: ModalController, 
+		private apiService: ApiService
 	) {
 		this.apiService.Get<IBook[]>("books").subscribe(data => {
 			this.books = data;

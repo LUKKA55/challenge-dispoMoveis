@@ -18,17 +18,18 @@ export class NotesPage {
   constructor(
     private alertController: AlertController, 
     private router: Router
-  ) {
-      this.loadNotes()
-  }
+  ) {}
 
   ngOnInit(){
     this.router.events.subscribe(event => {
       if (
         event instanceof NavigationEnd && 
         event.urlAfterRedirects.includes('/notes')
-      )
-          this.loadNotes()
+      ){
+        this.notes = (JSON.parse(localStorage.getItem("notes") ?? "[]") as INote[])
+        this.filteredNotes = this.notes
+        this.showSearchBar = this.filteredNotes.length > 0
+      }
     });
   }
 
@@ -103,11 +104,4 @@ export class NotesPage {
 
     this.filteredNotes = this.notes.filter(n => n.titleBook.toLowerCase().includes(searchTerm));
   }		
-
-  private loadNotes(){
-    // Atualiza as anotações toda vez que entra na página
-    this.notes = (JSON.parse(localStorage.getItem("notes") ?? "[]") as INote[])
-    this.filteredNotes = this.notes
-    this.showSearchBar = this.filteredNotes.length > 0
-  }
 }

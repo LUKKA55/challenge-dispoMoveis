@@ -25,8 +25,6 @@ export class ModalViewPDFComponent  implements OnInit {
     this.bookSaved = books.some(b => b.id === this.book.id)
   }
 
-  ngOnChanges(): void {}
-
 	closeModal(){
     this.modalController.dismiss()
 	}
