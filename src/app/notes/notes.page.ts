@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { INote } from '../interfaces/note';
 import { AlertController, IonItemSliding } from '@ionic/angular';
 import { NavigationEnd, Router } from '@angular/router';
-import { IBook } from '../interfaces/book';
-import { ApiService } from '../services/api-service';
 
 @Component({
   selector: 'app-notes',
@@ -13,28 +11,20 @@ import { ApiService } from '../services/api-service';
 })
 export class NotesPage {
   private notes: INote[] = []
-  private books: IBook[] = []
 
   showSearchBar!:boolean;
   filteredNotes: INote[] = []
-  loading: boolean = true
 
   constructor(
     private alertController: AlertController, 
-    private router: Router, 
-    private apiService: ApiService
+    private router: Router
   ) {
-    this.apiService.Get<IBook[]>("books").subscribe(data => {
-      this.books = data;
       this.loadNotes()
-      this.loading = false;
-    })
   }
 
   ngOnInit(){
     this.router.events.subscribe(event => {
       if (
-        !this.loading && 
         event instanceof NavigationEnd && 
         event.urlAfterRedirects.includes('/notes')
       )
@@ -92,6 +82,7 @@ export class NotesPage {
 
     const notesFiltered = this.filteredNotes.filter(a => a.id !== idNote)
     this.filteredNotes = notesFiltered
+    this.showSearchBar = this.filteredNotes.length > 0
 
     await slidingItem.close()
   }
@@ -116,14 +107,7 @@ export class NotesPage {
   private loadNotes(){
     // Atualiza as anotações toda vez que entra na página
     this.notes = (JSON.parse(localStorage.getItem("notes") ?? "[]") as INote[])
-    this.filteredNotes = this.notes.map(n => {
-      const book = this.books.find(b => b.id === n.idBook)
-      return ({
-        ...n,
-        nameBook: book?.title
-      } as INote)
-    })
-
+    this.filteredNotes = this.notes
     this.showSearchBar = this.filteredNotes.length > 0
   }
 }

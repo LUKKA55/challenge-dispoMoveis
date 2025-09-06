@@ -8,16 +8,18 @@
 
 <ion-content [fullscreen]="true">
   @if(showSearchBar){
-    <ion-searchbar placeholder="Search by book?" class="search-bar-page" (ionInput)="filterBooks($event)"></ion-searchbar>
+    <ion-searchbar placeholder="Search by book" class="search-bar-page" (ionInput)="filterBooks($event)"></ion-searchbar>
   }
 
-   @if(filteredBooksSaved.length === 0){
+  @if(filteredBooksSaved.length === 0){
+    <ion-list>
       <ion-item>
         <ion-label>
           <h2>No books saved</h2>
         </ion-label>
       </ion-item>
-    }
+    </ion-list>
+  }
 
   <ion-grid>
     <ion-row>

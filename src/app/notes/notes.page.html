@@ -20,10 +20,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @if (loading) {
-    <ion-spinner name="bubbles" class="loading-spinner"></ion-spinner>
-  }
-
   @if(showSearchBar){
     <ion-searchbar placeholder="Search by book" class="search-bar-page" (ionInput)="filterNotes($event)"></ion-searchbar>
   }
