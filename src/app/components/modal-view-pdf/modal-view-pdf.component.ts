@@ -12,13 +12,18 @@ import { INote as INote } from 'src/app/interfaces/note';
 })
 export class ModalViewPDFComponent  implements OnInit {
   @Input() book!: IBook;
+  bookSavedChange: (book: IBook, deleteNote: boolean) => void = () => {}
+  bookSaved!: boolean
 
   constructor(
     private modalController : ModalController, 
     private alertController : AlertController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const books = (JSON.parse(localStorage.getItem("booksSaved") ?? "[]") as IBook[])
+    this.bookSaved = books.some(b => b.id === this.book.id)
+  }
 
   ngOnChanges(): void {}
 
@@ -64,9 +69,19 @@ export class ModalViewPDFComponent  implements OnInit {
   }
 
   saveBook(book: IBook){
-    const saveBooks = (JSON.parse(localStorage.getItem("saveBooks") ?? "[]") as IBook[])
-    saveBooks.push(book)
+    let saveBooks = (JSON.parse(localStorage.getItem("booksSaved") ?? "[]") as IBook[])
 
-    localStorage.setItem("saveBooks", JSON.stringify(saveBooks))
+    const bookAlreadySaved = saveBooks.some(b => b.id === book.id)
+    
+    if(bookAlreadySaved){
+      saveBooks = saveBooks.filter(b => b.id !== book.id)
+    }else{
+      saveBooks.push(book)
+    }
+
+    this.bookSavedChange(book, bookAlreadySaved)
+    this.bookSaved = !bookAlreadySaved
+    
+    localStorage.setItem("booksSaved", JSON.stringify(saveBooks))
   }
 }

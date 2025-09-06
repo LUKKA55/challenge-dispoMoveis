@@ -1,0 +1,17 @@
+.card-book {
+    cursor: pointer;
+}
+
+.card-header {
+    padding-bottom: 0;
+    height: 80px;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+}
+
+.card-content{
+    display: flex;
+    justify-content: end;
+    height: 20px;
+    padding: 0 10px;
+}

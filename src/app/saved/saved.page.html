@@ -7,5 +7,35 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  favorite
+  @if(showSearchBar){
+    <ion-searchbar placeholder="Search by book?" class="search-bar-page" (ionInput)="filterBooks($event)"></ion-searchbar>
+  }
+
+   @if(filteredBooksSaved.length === 0){
+      <ion-item>
+        <ion-label>
+          <h2>No books saved</h2>
+        </ion-label>
+      </ion-item>
+    }
+
+  <ion-grid>
+    <ion-row>
+      @if(filteredBooksSaved.length > 0) {
+        @for (book of filteredBooksSaved; track $index) {
+          <ion-col size="6">
+            <ion-card color="light" class="card-book" (click)="openModalViewPdf(book)">
+              <ion-card-header class="card-header">
+                <ion-card-subtitle>{{book.chapterNumber + " - " + book.title }}</ion-card-subtitle>
+              </ion-card-header>
+          
+              <ion-card-content class="card-content">
+                <ion-icon [color]="getColorIconBook($index)" name="book-outline" class="card-icon-book"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        } 
+      }
+    </ion-row>
+  </ion-grid>
 </ion-content>

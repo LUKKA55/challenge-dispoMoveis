@@ -18,7 +18,11 @@
 
   <ion-buttons class="content-buttons-actions">
     <ion-button color="primary" (click)="saveBook(book)">
-      <ion-icon name="bookmark-outline"></ion-icon>
+      @if(bookSaved){
+        <ion-icon name="bookmark"></ion-icon>
+      }@else{
+        <ion-icon name="bookmark-outline"></ion-icon>
+      }
     </ion-button>
     <ion-button color="primary" (click)="showAlertAddNote(book.title)">
       <ion-icon name="pencil-sharp"></ion-icon>
